@@ -17,14 +17,14 @@ signature: 'v1.eyJzdWIiOiIxMTE1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpY
 otherwise. The queued parser fix closes only `parser`.
 
 <Callout kind="warn">
-Not one issue. One ticket per problem. Fixing the parser leaves the others open.
+Not one issue: two causes, one ticket each. Fixing the parser leaves `hint` open.
 </Callout>
 
 ## What #4471 holds
 
 <CauseTable ticket={4471} />
 
-Each row is a problem, and so is the footnote under `parser`. One ticket each:
+Each row is a cause, and each cause has its own ticket:
 
 - **`parser`** — [ticket #1](https://github.com/kjoetftfke/mega-s01e03/issues/1). The shared
   parser reads every date month first. Day-first tenants get day and month swapped: 7 April
@@ -33,27 +33,22 @@ Each row is a problem, and so is the footnote under `parser`. One ticket each:
   "no ticket of its own"; now it has one. booking-v3 prints `MM/DD/YYYY` under its date field.
   People at a day-first tenant type month first, as told, and the form reads it day first. Same
   symptom, different code: the parser fix does not reach it.
-- **one-day move** — [ticket #4](https://github.com/kjoetftfke/mega-s01e03/issues/4). The reports
-  in the footnote. The date moves by one day; nothing is swapped. "Client in Lisbon got Tuesday.
-  Client in Toronto got Monday." They stay filed under `parser` by tenant, but the parser fix
-  will not close them. They look like a time-zone or offset bug.
 
 ## How the reports were placed
 
 The table above is the desk's own view: each report counted once by id (the export pages
 overlap, so some rows repeat), filed under its cause by tenant and the way it came in (`causeOf`
-in `causes.ts`). The one-day moves are the desk's own reading (`desk-notes.json`).
-
-Every report body was read against that placement: all but a handful show an exact day/month
-swap, the one-day moves show a one-day shift, and the rest are too vague to place by body.
+in `causes.ts`).
+The reports in the footnote belong to `parser`: `causeOf` ties them there by tenant, so they are
+counted in ticket #1 and nowhere else.
 
 Intake's tag is no guide here: it guesses from the reporter's browser, not the tenant, so it
 tags `hint` reports `parser` and `parser` reports `hint`. The table counts by tenant.
 
 ## For the desk
 
-- Close each problem on its own ticket. #4471 stays open until every problem is fixed.
+- Close each cause on its own ticket. #4471 stays open until both are fixed.
 - Merging on subject ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put them all under
-  one ticket: "Date is wrong" and "Month and day swapped?" come in under every problem.
+  one ticket: "Date is wrong" and "Month and day swapped?" come in under both causes.
 
 <RenderStamp {signature} />
