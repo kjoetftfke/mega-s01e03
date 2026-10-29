@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · separate problems under one ticket'
 owner: Jeff
-status: open
+status: closed
 reviewed: 2026-10-28
 signature: 'v1.eyJzdWIiOiIxMTE1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyNDM4OTgsImV4cCI6MTc5MzMzMDI5OH0.9ZtJZscAN-IOsULJGTk-ybPiszTNZofjgKaS_BdFgUM'
 ---
@@ -28,11 +28,12 @@ Each row is a cause, and each cause has its own ticket:
 
 - **`parser`** — [ticket #1](https://github.com/kjoetftfke/mega-s01e03/issues/1). The shared
   parser reads every date month first. Day-first tenants get day and month swapped: 7 April
-  becomes 4 July.
+  becomes 4 July. **Fixed:** `fix(dates): parse dd/mm for eu locales`.
 - **`hint`** — [ticket #2](https://github.com/kjoetftfke/mega-s01e03/issues/2). The table marks it
   "no ticket of its own"; now it has one. booking-v3 prints `MM/DD/YYYY` under its date field.
   People at a day-first tenant type month first, as told, and the form reads it day first. Same
-  symptom, different code: the parser fix does not reach it.
+  symptom, different code: the parser fix does not reach it. **Won't fix:** booking-v3 form
+  retired.
 
 ## How the reports were placed
 
