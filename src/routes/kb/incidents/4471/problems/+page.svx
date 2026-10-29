@@ -1,0 +1,70 @@
+---
+layout: runbook
+title: '#4471 · separate problems under one ticket'
+owner: Jeff
+status: open
+reviewed: 2026-10-28
+signature: Jeff
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const tickets = {
+    parser: 'https://github.com/kjoetftfke/mega-s01e03/issues/1',
+    hint: 'https://github.com/kjoetftfke/mega-s01e03/issues/2',
+    'one-day-move': 'https://github.com/kjoetftfke/mega-s01e03/issues/3',
+  };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Its reports show separate
+problems, counted below. The queued parser fix closes only `parser`.
+
+<Callout kind="warn">
+Not one issue. One ticket per problem. Fixing the parser leaves the others open.
+</Callout>
+
+## The problems
+
+<ProblemTable ticket={4471} {tickets} />
+
+- **`parser`** — the shared parser reads every date month first. Day-first tenants get day and
+  month swapped: 7 April becomes 4 July.
+- **`hint`** — booking-v3 prints `MM/DD/YYYY` under its date field. People at a day-first tenant
+  type month first, as told, and the form reads it day first. Same symptom, different code: the
+  parser fix does not reach it.
+- **`one-day-move`** — the date moves by one day; nothing is swapped. "Client in Lisbon got
+  Tuesday. Client in Toronto got Monday." The desk already read these as one-day moves
+  (`desk-notes.json`) but files them under `parser` by tenant. They look like a time-zone or
+  offset bug.
+
+## How the reports were placed
+
+Each report is counted once by id: the export pages overlap, so some rows repeat. A report's
+problem comes from its tenant and the way it came in (`causeOf` in `causes.ts`), except the
+reports the desk read as a one-day move. That logic is `problemOf` in `#lib/kb/problems.ts`, so
+the table above recomputes when the export changes.
+
+Every report body was read against that placement: all but a handful show an exact day/month
+swap, the one-day moves show a one-day shift, and the rest are too vague to place by body.
+
+Intake's tag is no guide here: it guesses from the reporter's browser, not the tenant, so it
+tags `hint` reports `parser` and `parser` reports `hint`. The table above counts by tenant.
+
+## The same reports, as #4471 shows them
+
+<CauseTable ticket={4471} />
+
+This is the table on the #4471 page. It already splits `hint` from `parser`, and footnotes the
+one-day moves under `parser`.
+
+## For the desk
+
+- Close each problem on its own ticket. #4471 stays open until every problem is fixed.
+- Merging on subject ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put them all under
+  one ticket: "Date is wrong" and "Month and day swapped?" come in under every problem.
+
+<RenderStamp {signature} />
