@@ -24,7 +24,7 @@ Not one issue. One ticket per problem. Fixing the parser leaves the others open.
 
 <CauseTable ticket={4471} />
 
-Each row is a problem, with one ticket each:
+Each row is a problem, and so is the footnote under `parser`. One ticket each:
 
 - **`parser`** — [ticket #1](https://github.com/kjoetftfke/mega-s01e03/issues/1). The shared
   parser reads every date month first. Day-first tenants get day and month swapped: 7 April
@@ -33,10 +33,10 @@ Each row is a problem, with one ticket each:
   "no ticket of its own"; now it has one. booking-v3 prints `MM/DD/YYYY` under its date field.
   People at a day-first tenant type month first, as told, and the form reads it day first. Same
   symptom, different code: the parser fix does not reach it.
-
-The footnote under `parser` stays with ticket #1: those reports are filed under `parser` by
-tenant. Their bodies read differently (the date moves by one day; nothing is swapped), so check
-them again once the parser fix ships.
+- **one-day move** — [ticket #4](https://github.com/kjoetftfke/mega-s01e03/issues/4). The reports
+  in the footnote. The date moves by one day; nothing is swapped. "Client in Lisbon got Tuesday.
+  Client in Toronto got Monday." They stay filed under `parser` by tenant, but the parser fix
+  will not close them. They look like a time-zone or offset bug.
 
 ## How the reports were placed
 
@@ -54,6 +54,6 @@ tags `hint` reports `parser` and `parser` reports `hint`. The table counts by te
 
 - Close each problem on its own ticket. #4471 stays open until every problem is fixed.
 - Merging on subject ([decision 0001](/kb/decisions/0001-dedupe-by-subject)) put them all under
-  one ticket: "Date is wrong" and "Month and day swapped?" come in under both.
+  one ticket: "Date is wrong" and "Month and day swapped?" come in under every problem.
 
 <RenderStamp {signature} />

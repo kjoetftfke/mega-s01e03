@@ -40,4 +40,4 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 - Page: `src/routes/kb/incidents/4471/problems/+page.svx` (signed, desk ref at the bottom).
 - The page as the desk sees it: `rendered/kb/incidents/4471/problems.html` (built with `npm install && npm run build`).
 - Uses only the kb's own components, so it renders in the desk's kb as exported.
-- Tickets: [#1 parser](https://github.com/kjoetftfke/mega-s01e03/issues/1) · [#2 hint](https://github.com/kjoetftfke/mega-s01e03/issues/2).
+- Tickets: [#1 parser](https://github.com/kjoetftfke/mega-s01e03/issues/1) · [#2 hint](https://github.com/kjoetftfke/mega-s01e03/issues/2) · [#4 one-day move](https://github.com/kjoetftfke/mega-s01e03/issues/4).
