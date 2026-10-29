@@ -15,8 +15,8 @@
 <p class="sum">
   <strong>{result.reports.length}</strong> reports merged into #{ticket}
   ({result.rows} export rows, {result.rows - result.reports.length} of them repeats) ·
-  <strong>{result.problems.length}</strong>
-  {result.problems.length === 1 ? 'problem' : 'problems'}
+  <strong>{result.groups.length}</strong>
+  {result.groups.length === 1 ? 'problem' : 'problems'}
 </p>
 
 <table>
@@ -24,10 +24,10 @@
     <tr><th>problem</th><th>reports</th><th>tenants</th><th>seen</th><th>ticket</th></tr>
   </thead>
   <tbody>
-    {#each result.problems as g (g.problem)}
+    {#each result.groups as g (g.problem)}
       <tr class:missing={!tickets[g.problem]}>
         <td><code>{g.problem}</code></td>
-        <td>{g.reports.length}{#if g.filedUnder}<span class="under"> · filed under <code>{g.filedUnder}</code></span>{/if}</td>
+        <td>{g.reports.length}</td>
         <td>{g.tenants}</td>
         <td>{g.firstSeen} → {g.lastSeen}</td>
         <td>
@@ -36,11 +36,14 @@
       </tr>
     {/each}
   </tbody>
+  <tfoot>
+    <tr><td>total</td><td>{result.groups.reduce((n, g) => n + g.reports.length, 0)}</td><td colspan="3"></td></tr>
+  </tfoot>
 </table>
 
 <style>
   .sum { font-size: 1.1rem; }
   .missing td { background: var(--warn-bg); }
   .missing td:last-child { color: var(--warn); font-weight: 600; }
-  .under { color: var(--muted); font-size: 0.85em; }
+  tfoot td { font-weight: 600; }
 </style>

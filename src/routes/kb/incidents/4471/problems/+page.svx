@@ -43,17 +43,16 @@ Not one issue. One ticket per problem. Fixing the parser leaves the others open.
 
 ## How the reports were placed
 
-The counts are the desk's own view, the same logic as the #4471 table below: each report counted
-once by id (the export pages overlap, so some rows repeat), filed under its cause by tenant and
-the way it came in (`causeOf` in `causes.ts`). The reports the desk read as a one-day move stay
-filed under their cause and are counted again as their own problem. That logic is `problemsIn`
-in `#lib/kb/problems.ts`, so the table above recomputes when the export changes.
+Each report is counted once by id: the export pages overlap, so some rows repeat. A report's
+problem comes from its tenant and the way it came in (`causeOf` in `causes.ts`), except the
+reports the desk read as a one-day move. That logic is `problemOf` in `#lib/kb/problems.ts`, so
+the table above recomputes when the export changes.
 
 Every report body was read against that placement: all but a handful show an exact day/month
 swap, the one-day moves show a one-day shift, and the rest are too vague to place by body.
 
 Intake's tag is no guide here: it guesses from the reporter's browser, not the tenant, so it
-tags `hint` reports `parser` and `parser` reports `hint`. Both tables count by tenant.
+tags `hint` reports `parser` and `parser` reports `hint`. The table above counts by tenant.
 
 ## The same reports, as #4471 shows them
 
